@@ -16,6 +16,7 @@ Thread.new do
     # tweet if the current time is a prime number
     if Prime.prime?(time_num)
       CLIENT.update("The current time is #{time.strftime('%H:%M')}.\nIT'S PRIME TIME.")
+      Rails.logger.info("Tweeting at #{time.to_s}")
     end
   end
 end
