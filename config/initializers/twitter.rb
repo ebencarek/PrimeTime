@@ -8,15 +8,16 @@ CLIENT = Twitter::REST::Client.new do |config|
 end
 
 Thread.new do
+  last_num = -1
   while true
-    # only run once per minute, won't check seconds of the time
-    sleep 60
+    sleep 30
     time = Time.now
     time_num = time.strftime("%H%M").to_i
     # tweet if the current time is a prime number
-    if Prime.prime?(time_num)
+    if time_num != last_num && Prime.prime?(time_num)
       CLIENT.update("The current time is #{time.strftime('%H:%M')}.\nIT'S PRIME TIME.")
       Rails.logger.info("Tweeting at #{time.to_s}")
+      last_num = time_num
     end
   end
 end
