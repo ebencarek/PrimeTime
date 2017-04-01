@@ -28,6 +28,6 @@ end
 Thread.new do
   while true
     sleep 1800
-    Net::HTTP.get("https://immense-falls-34635.herokuapp.com", "/")
+    Net::HTTP.get("immense-falls-34635.herokuapp.com", "/")
   end
 end
