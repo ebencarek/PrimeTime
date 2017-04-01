@@ -1,4 +1,5 @@
 require 'prime'
+require 'net/http'
 
 CLIENT = Twitter::REST::Client.new do |config|
   config.consumer_key = ENV['consumer_key']
@@ -7,6 +8,7 @@ CLIENT = Twitter::REST::Client.new do |config|
   config.access_token_secret = ENV['access_secret']
 end
 
+# monitor the time, tweet when appropriate
 Thread.new do
   last_num = -1
   while true
@@ -19,5 +21,13 @@ Thread.new do
       Rails.logger.info("Tweeting at #{time.to_s}")
       last_num = time_num
     end
+  end
+end
+
+# ping the production server every 30 minutes to prevent it from going to sleep
+Thread.new do
+  while true
+    sleep 1800
+    Net::HTTP.get("https://immense-falls-34635.herokuapp.com", "/")
   end
 end
