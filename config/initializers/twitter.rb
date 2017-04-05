@@ -24,10 +24,10 @@ Thread.new do
   end
 end
 
-# ping the production server every 30 minutes to prevent it from going to sleep
+# ping the production server every 15 minutes to prevent it from going to sleep
 Thread.new do
   while true
-    sleep 1800
+    sleep 900
     Net::HTTP.get("immense-falls-34635.herokuapp.com", "/")
   end
 end
