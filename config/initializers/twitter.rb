@@ -28,6 +28,7 @@ end
 Thread.new do
   while true
     sleep 900
+    Rails.logger.info("Ping server at #{time.to_s}")
     Net::HTTP.get("immense-falls-34635.herokuapp.com", "/")
   end
 end
